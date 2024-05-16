@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Authors>John Korsnes</Authors>
+    <Description>This is a sample classlib published via the template repo</Description>
+    <PackageTags>library</PackageTags>
+    <PackageIcon>icon.512x512.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <License>LICENSE</License>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/johnkors/dotnet-library</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/johnkors/dotnet-library</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DotNet8Version>8.0.0</DotNet8Version>
+    <DotNet7Version>7.0.0</DotNet7Version>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(DotNet8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(DotNet8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="$(DotNet8Version)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(DotNet7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(DotNet7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="$(DotNet7Version)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../images/icon.512x512.png" Pack="true" PackagePath="" />
+    <None Include="../../README.md" Pack="true" PackagePath="" />
+    <None Include="../../LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SomePeerDependency\SomePeerDependency.csproj" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2PAssets</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+  <Target Name="IncludeP2PAssets">
+    <ItemGroup>
+        <BuildOutputInPackage Include="$(OutputPath)SomePeerDependency.dll" />
+    </ItemGroup>
+</Target>
+
+</Project>
